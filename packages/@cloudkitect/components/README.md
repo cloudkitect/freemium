@@ -9,6 +9,7 @@ They are available under a freemium model and meet a subset of compliance requir
 contrast to CloudKitect Enhanced components, which conform to a broader range of compliance
 standards including CIS, PCI, MAS, NIST-800, ARP, GDPR, and others.
 
+
 ## Developer Workstation Setup
 Primarily, CloudKitect prioritizes enhancing the developer experience, 
 thus all our products are designed with the developer community at the forefront.
