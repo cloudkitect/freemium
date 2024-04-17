@@ -72,6 +72,9 @@ patterns.addPeerDeps(`${scope}/components@1.2.0`)
 patterns.addDevDeps(`${scope}/components@1.2.0`)
 patterns.synth();
 
+const patternReleaseYaml = project.tryFindObjectFile('.github/workflows/release_cloudkitect-patterns.yml');
+patternReleaseYaml!.addOverride('jobs.release_npm.steps.5.run', 'cd .repo && pnpm i --no-frozen-lockfile')
+
 const exclusions = ['.DS_Store', '.idea', '*.iml']
 project.gitignore.exclude(...exclusions)
 
