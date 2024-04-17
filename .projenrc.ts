@@ -67,9 +67,9 @@ const patterns = new AwsCdkConstructLibrary({
     "cloud components", "cdk constructs", "patterns", "terraform", "cloud compliance", "well architected"]
 });
 
-patterns.addDeps(`${scope}/components`)
-patterns.addPeerDeps(`${scope}/components`)
-patterns.addDevDeps(`${scope}/components`)
+patterns.addDeps(`${scope}/components@1.2.0`)
+patterns.addPeerDeps(`${scope}/components@1.2.0`)
+patterns.addDevDeps(`${scope}/components@1.2.0`)
 patterns.synth();
 
 const exclusions = ['.DS_Store', '.idea', '*.iml']
