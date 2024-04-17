@@ -1,0 +1,1923 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Well Architected Serverless Container CP-73: Default container app 1`] = `
+{
+  "Mappings": {
+    "AWSCloudFrontPartitionHostedZoneIdMap": {
+      "aws": {
+        "zoneId": "Z2FDTNDATAQYW2",
+      },
+      "aws-cn": {
+        "zoneId": "Z3RFFRIM2A3IF5",
+      },
+    },
+  },
+  "Outputs": {
+    "ContainerAlbEndpoint94AE08AF": {
+      "Value": {
+        "Ref": "ContainerAlbAliasRecord16B6E024",
+      },
+    },
+    "ContainerCfEndpointCE69A7D4": {
+      "Value": {
+        "Ref": "ContainerCfAliasRecordCB359E2F",
+      },
+    },
+  },
+  "Parameters": {
+    "BootstrapVersion": {
+      "Default": "/cdk-bootstrap/hnb659fds/version",
+      "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]",
+      "Type": "AWS::SSM::Parameter::Value<String>",
+    },
+  },
+  "Resources": {
+    "ContainerALBOriginRequestPolicyE0C88A0B": {
+      "Properties": {
+        "OriginRequestPolicyConfig": {
+          "Comment": "Origin request policy for Load Balancer origin",
+          "CookiesConfig": {
+            "CookieBehavior": "all",
+          },
+          "HeadersConfig": {
+            "HeaderBehavior": "allViewer",
+          },
+          "Name": "TestStackContainerALBOriginRequestPolicyD32CAC67",
+          "QueryStringsConfig": {
+            "QueryStringBehavior": "all",
+          },
+        },
+      },
+      "Type": "AWS::CloudFront::OriginRequestPolicy",
+    },
+    "ContainerAlbAliasRecord16B6E024": {
+      "Properties": {
+        "AliasTarget": {
+          "DNSName": {
+            "Fn::Join": [
+              "",
+              [
+                "dualstack.",
+                {
+                  "Fn::GetAtt": [
+                    "ContainerPublicAlbEDFFFB88",
+                    "DNSName",
+                  ],
+                },
+              ],
+            ],
+          },
+          "HostedZoneId": {
+            "Fn::GetAtt": [
+              "ContainerPublicAlbEDFFFB88",
+              "CanonicalHostedZoneID",
+            ],
+          },
+        },
+        "HostedZoneId": "DUMMY",
+        "Name": "app-alb.cloudkitect.com.",
+        "Type": "A",
+      },
+      "Type": "AWS::Route53::RecordSet",
+    },
+    "ContainerCfAliasRecordCB359E2F": {
+      "Properties": {
+        "AliasTarget": {
+          "DNSName": {
+            "Fn::GetAtt": [
+              "ContainerCloudkitectDotComDistribution5264E2FF",
+              "DomainName",
+            ],
+          },
+          "HostedZoneId": {
+            "Fn::FindInMap": [
+              "AWSCloudFrontPartitionHostedZoneIdMap",
+              {
+                "Ref": "AWS::Partition",
+              },
+              "zoneId",
+            ],
+          },
+        },
+        "HostedZoneId": "DUMMY",
+        "Name": "app.cloudkitect.com.",
+        "Type": "A",
+      },
+      "Type": "AWS::Route53::RecordSet",
+    },
+    "ContainerCloudkitectDotComAlbCertD5B35148": {
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "DomainName": "app-alb.cloudkitect.com",
+        "DomainValidationOptions": [
+          {
+            "DomainName": "app-alb.cloudkitect.com",
+            "HostedZoneId": "DUMMY",
+          },
+        ],
+        "Tags": [
+          {
+            "Key": "CkComponents",
+            "Value": "2.128.0",
+          },
+          {
+            "Key": "CkVendor",
+            "Value": "CloudKitect",
+          },
+          {
+            "Key": "Name",
+            "Value": "TestStack/Container/CloudkitectDotComAlbCert",
+          },
+        ],
+        "ValidationMethod": "DNS",
+      },
+      "Type": "AWS::CertificateManager::Certificate",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "ContainerCloudkitectDotComCfCertE06BC0B3": {
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "DomainName": "app.cloudkitect.com",
+        "DomainValidationOptions": [
+          {
+            "DomainName": "app.cloudkitect.com",
+            "HostedZoneId": "DUMMY",
+          },
+        ],
+        "Tags": [
+          {
+            "Key": "CkComponents",
+            "Value": "2.128.0",
+          },
+          {
+            "Key": "CkVendor",
+            "Value": "CloudKitect",
+          },
+          {
+            "Key": "Name",
+            "Value": "TestStack/Container/CloudkitectDotComCfCert",
+          },
+        ],
+        "ValidationMethod": "DNS",
+      },
+      "Type": "AWS::CertificateManager::Certificate",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "ContainerCloudkitectDotComDistribution5264E2FF": {
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "DistributionConfig": {
+          "Aliases": [
+            "app.cloudkitect.com",
+          ],
+          "DefaultCacheBehavior": {
+            "CachePolicyId": "658327ea-f89d-4fab-a63d-7e88639e58f6",
+            "Compress": true,
+            "OriginRequestPolicyId": {
+              "Ref": "ContainerALBOriginRequestPolicyE0C88A0B",
+            },
+            "TargetOriginId": "TestStackContainerCloudkitectDotComDistributionOriginGroup11851D2BE",
+            "ViewerProtocolPolicy": "redirect-to-https",
+          },
+          "DefaultRootObject": "index.html",
+          "Enabled": true,
+          "HttpVersion": "http2",
+          "IPV6Enabled": true,
+          "OriginGroups": {
+            "Items": [
+              {
+                "FailoverCriteria": {
+                  "StatusCodes": {
+                    "Items": [
+                      404,
+                      500,
+                      502,
+                      503,
+                      504,
+                    ],
+                    "Quantity": 5,
+                  },
+                },
+                "Id": "TestStackContainerCloudkitectDotComDistributionOriginGroup11851D2BE",
+                "Members": {
+                  "Items": [
+                    {
+                      "OriginId": "TestStackContainerCloudkitectDotComDistributionOrigin178FF1457",
+                    },
+                    {
+                      "OriginId": "TestStackContainerCloudkitectDotComDistributionOrigin2A0AC5F20",
+                    },
+                  ],
+                  "Quantity": 2,
+                },
+              },
+            ],
+            "Quantity": 1,
+          },
+          "Origins": [
+            {
+              "CustomOriginConfig": {
+                "OriginProtocolPolicy": "https-only",
+                "OriginSSLProtocols": [
+                  "TLSv1.2",
+                ],
+              },
+              "DomainName": "app-alb.cloudkitect.com",
+              "Id": "TestStackContainerCloudkitectDotComDistributionOrigin178FF1457",
+            },
+            {
+              "CustomOriginConfig": {
+                "OriginProtocolPolicy": "https-only",
+                "OriginSSLProtocols": [
+                  "TLSv1.2",
+                ],
+              },
+              "DomainName": "www.cloudkitect.com",
+              "Id": "TestStackContainerCloudkitectDotComDistributionOrigin2A0AC5F20",
+            },
+          ],
+          "PriceClass": "PriceClass_All",
+          "ViewerCertificate": {
+            "AcmCertificateArn": {
+              "Ref": "ContainerCloudkitectDotComCfCertE06BC0B3",
+            },
+            "MinimumProtocolVersion": "TLSv1.2_2021",
+            "SslSupportMethod": "sni-only",
+          },
+        },
+        "Tags": [
+          {
+            "Key": "CkComponents",
+            "Value": "2.128.0",
+          },
+          {
+            "Key": "CkVendor",
+            "Value": "CloudKitect",
+          },
+        ],
+      },
+      "Type": "AWS::CloudFront::Distribution",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "ContainerCluster9179DC3F": {
+      "Properties": {
+        "CapacityProviders": [
+          "FARGATE",
+          "FARGATE_SPOT",
+        ],
+        "Cluster": {
+          "Ref": "ContainerClusterC7EDAA3A",
+        },
+        "DefaultCapacityProviderStrategy": [],
+      },
+      "Type": "AWS::ECS::ClusterCapacityProviderAssociations",
+    },
+    "ContainerClusterC7EDAA3A": {
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "ClusterSettings": [
+          {
+            "Name": "containerInsights",
+            "Value": "enabled",
+          },
+        ],
+        "Tags": [
+          {
+            "Key": "CkComponents",
+            "Value": "2.128.0",
+          },
+          {
+            "Key": "CkVendor",
+            "Value": "CloudKitect",
+          },
+        ],
+      },
+      "Type": "AWS::ECS::Cluster",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "ContainerPublicAlbEDFFFB88": {
+      "DeletionPolicy": "Retain",
+      "DependsOn": [
+        "ContainerVpcPublicSubnet1DefaultRouteD0030B16",
+        "ContainerVpcPublicSubnet1RouteTableAssociationC1F955B0",
+        "ContainerVpcPublicSubnet2DefaultRouteB6A2DCBD",
+        "ContainerVpcPublicSubnet2RouteTableAssociation8BB25F09",
+        "ContainerVpcPublicSubnet3DefaultRouteC8AADFE4",
+        "ContainerVpcPublicSubnet3RouteTableAssociation93528F4B",
+      ],
+      "Properties": {
+        "LoadBalancerAttributes": [
+          {
+            "Key": "deletion_protection.enabled",
+            "Value": "false",
+          },
+          {
+            "Key": "routing.http.drop_invalid_header_fields.enabled",
+            "Value": "true",
+          },
+        ],
+        "Scheme": "internet-facing",
+        "SecurityGroups": [
+          {
+            "Fn::GetAtt": [
+              "ContainerPublicAlbSecurityGroup799751F0",
+              "GroupId",
+            ],
+          },
+        ],
+        "Subnets": [
+          {
+            "Ref": "ContainerVpcPublicSubnet1Subnet035629B6",
+          },
+          {
+            "Ref": "ContainerVpcPublicSubnet2SubnetF2EAFAB3",
+          },
+          {
+            "Ref": "ContainerVpcPublicSubnet3SubnetEAC6F17B",
+          },
+        ],
+        "Tags": [
+          {
+            "Key": "CkComponents",
+            "Value": "2.128.0",
+          },
+          {
+            "Key": "CkVendor",
+            "Value": "CloudKitect",
+          },
+        ],
+        "Type": "application",
+      },
+      "Type": "AWS::ElasticLoadBalancingV2::LoadBalancer",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "ContainerPublicAlbHttpsListenerE34EED7E": {
+      "Properties": {
+        "Certificates": [
+          {
+            "CertificateArn": {
+              "Ref": "ContainerCloudkitectDotComAlbCertD5B35148",
+            },
+          },
+        ],
+        "DefaultActions": [
+          {
+            "TargetGroupArn": {
+              "Ref": "ContainerPublicAlbHttpsListenerTestServiceTargetsGroup490CD566",
+            },
+            "Type": "forward",
+          },
+        ],
+        "LoadBalancerArn": {
+          "Ref": "ContainerPublicAlbEDFFFB88",
+        },
+        "Port": 443,
+        "Protocol": "HTTPS",
+      },
+      "Type": "AWS::ElasticLoadBalancingV2::Listener",
+    },
+    "ContainerPublicAlbHttpsListenerTestServiceActionRule7165DC2B": {
+      "Properties": {
+        "Actions": [
+          {
+            "TargetGroupArn": {
+              "Ref": "ContainerPublicAlbHttpsListenerTestServiceTargetsGroup490CD566",
+            },
+            "Type": "forward",
+          },
+        ],
+        "Conditions": [
+          {
+            "Field": "path-pattern",
+            "PathPatternConfig": {
+              "Values": [
+                "/**",
+              ],
+            },
+          },
+        ],
+        "ListenerArn": {
+          "Ref": "ContainerPublicAlbHttpsListenerE34EED7E",
+        },
+        "Priority": 1,
+      },
+      "Type": "AWS::ElasticLoadBalancingV2::ListenerRule",
+    },
+    "ContainerPublicAlbHttpsListenerTestServiceTargetsGroup490CD566": {
+      "Properties": {
+        "HealthCheckPath": "/",
+        "Port": 80,
+        "Protocol": "HTTP",
+        "Tags": [
+          {
+            "Key": "CkComponents",
+            "Value": "2.128.0",
+          },
+          {
+            "Key": "CkVendor",
+            "Value": "CloudKitect",
+          },
+        ],
+        "TargetGroupAttributes": [
+          {
+            "Key": "stickiness.enabled",
+            "Value": "false",
+          },
+        ],
+        "TargetType": "ip",
+        "VpcId": {
+          "Ref": "ContainerVpc5E664F41",
+        },
+      },
+      "Type": "AWS::ElasticLoadBalancingV2::TargetGroup",
+    },
+    "ContainerPublicAlbLoadBalancerSecurityGroup6ACFDF80": {
+      "Properties": {
+        "GroupDescription": "Public Load Balancer Security Group",
+        "SecurityGroupEgress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow all outbound traffic by default",
+            "IpProtocol": "-1",
+          },
+        ],
+        "SecurityGroupIngress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "All https traffic",
+            "FromPort": 443,
+            "IpProtocol": "tcp",
+            "ToPort": 443,
+          },
+        ],
+        "Tags": [
+          {
+            "Key": "CkComponents",
+            "Value": "2.128.0",
+          },
+          {
+            "Key": "CkVendor",
+            "Value": "CloudKitect",
+          },
+        ],
+        "VpcId": {
+          "Ref": "ContainerVpc5E664F41",
+        },
+      },
+      "Type": "AWS::EC2::SecurityGroup",
+    },
+    "ContainerPublicAlbRedirect80To44397EC0C19": {
+      "Properties": {
+        "DefaultActions": [
+          {
+            "RedirectConfig": {
+              "Port": "443",
+              "Protocol": "HTTPS",
+              "StatusCode": "HTTP_301",
+            },
+            "Type": "redirect",
+          },
+        ],
+        "LoadBalancerArn": {
+          "Ref": "ContainerPublicAlbEDFFFB88",
+        },
+        "Port": 80,
+        "Protocol": "HTTP",
+      },
+      "Type": "AWS::ElasticLoadBalancingV2::Listener",
+    },
+    "ContainerPublicAlbSecurityGroup799751F0": {
+      "Properties": {
+        "GroupDescription": "Automatically created Security Group for ELB TestStackContainerPublicAlb48098FCE",
+        "SecurityGroupIngress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow from anyone on port 80",
+            "FromPort": 80,
+            "IpProtocol": "tcp",
+            "ToPort": 80,
+          },
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow from anyone on port 443",
+            "FromPort": 443,
+            "IpProtocol": "tcp",
+            "ToPort": 443,
+          },
+        ],
+        "Tags": [
+          {
+            "Key": "CkComponents",
+            "Value": "2.128.0",
+          },
+          {
+            "Key": "CkVendor",
+            "Value": "CloudKitect",
+          },
+        ],
+        "VpcId": {
+          "Ref": "ContainerVpc5E664F41",
+        },
+      },
+      "Type": "AWS::EC2::SecurityGroup",
+    },
+    "ContainerPublicAlbSecurityGrouptoTestStackContainerTestServiceFargateSG2CDFEA1E80D83A7EF4": {
+      "Properties": {
+        "Description": "Load balancer to target",
+        "DestinationSecurityGroupId": {
+          "Fn::GetAtt": [
+            "ContainerTestServiceFargateSGB8F2845C",
+            "GroupId",
+          ],
+        },
+        "FromPort": 80,
+        "GroupId": {
+          "Fn::GetAtt": [
+            "ContainerPublicAlbSecurityGroup799751F0",
+            "GroupId",
+          ],
+        },
+        "IpProtocol": "tcp",
+        "ToPort": 80,
+      },
+      "Type": "AWS::EC2::SecurityGroupEgress",
+    },
+    "ContainerTestServiceFargateSGB8F2845C": {
+      "Properties": {
+        "GroupDescription": "TestService Fargate Service Security Group",
+        "SecurityGroupEgress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow all outbound traffic by default",
+            "IpProtocol": "-1",
+          },
+        ],
+        "SecurityGroupIngress": [
+          {
+            "Description": "Traffic from Application Load Balancer to container port",
+            "FromPort": 80,
+            "IpProtocol": "tcp",
+            "SourceSecurityGroupId": {
+              "Fn::GetAtt": [
+                "ContainerPublicAlbLoadBalancerSecurityGroup6ACFDF80",
+                "GroupId",
+              ],
+            },
+            "ToPort": 80,
+          },
+        ],
+        "Tags": [
+          {
+            "Key": "CkComponents",
+            "Value": "2.128.0",
+          },
+          {
+            "Key": "CkVendor",
+            "Value": "CloudKitect",
+          },
+        ],
+        "VpcId": {
+          "Ref": "ContainerVpc5E664F41",
+        },
+      },
+      "Type": "AWS::EC2::SecurityGroup",
+    },
+    "ContainerTestServiceFargateSGfromTestStackContainerPublicAlbSecurityGroup4A48BD27801B277A6C": {
+      "Properties": {
+        "Description": "Load balancer to target",
+        "FromPort": 80,
+        "GroupId": {
+          "Fn::GetAtt": [
+            "ContainerTestServiceFargateSGB8F2845C",
+            "GroupId",
+          ],
+        },
+        "IpProtocol": "tcp",
+        "SourceSecurityGroupId": {
+          "Fn::GetAtt": [
+            "ContainerPublicAlbSecurityGroup799751F0",
+            "GroupId",
+          ],
+        },
+        "ToPort": 80,
+      },
+      "Type": "AWS::EC2::SecurityGroupIngress",
+    },
+    "ContainerTestServiceFargateSvcService6C2AFA59": {
+      "DeletionPolicy": "Retain",
+      "DependsOn": [
+        "ContainerPublicAlbHttpsListenerE34EED7E",
+        "ContainerPublicAlbHttpsListenerTestServiceActionRule7165DC2B",
+        "ContainerPublicAlbHttpsListenerTestServiceTargetsGroup490CD566",
+        "ContainerTestServiceFargateTaskDefTaskRole37C858E6",
+      ],
+      "Properties": {
+        "Cluster": {
+          "Ref": "ContainerClusterC7EDAA3A",
+        },
+        "DeploymentConfiguration": {
+          "Alarms": {
+            "AlarmNames": [],
+            "Enable": false,
+            "Rollback": false,
+          },
+          "DeploymentCircuitBreaker": {
+            "Enable": true,
+            "Rollback": true,
+          },
+          "MaximumPercent": 200,
+          "MinimumHealthyPercent": 50,
+        },
+        "DeploymentController": {
+          "Type": "ECS",
+        },
+        "EnableECSManagedTags": false,
+        "HealthCheckGracePeriodSeconds": 60,
+        "LaunchType": "FARGATE",
+        "LoadBalancers": [
+          {
+            "ContainerName": "TestServiceContainer",
+            "ContainerPort": 80,
+            "TargetGroupArn": {
+              "Ref": "ContainerPublicAlbHttpsListenerTestServiceTargetsGroup490CD566",
+            },
+          },
+        ],
+        "NetworkConfiguration": {
+          "AwsvpcConfiguration": {
+            "AssignPublicIp": "DISABLED",
+            "SecurityGroups": [
+              {
+                "Fn::GetAtt": [
+                  "ContainerTestServiceFargateSGB8F2845C",
+                  "GroupId",
+                ],
+              },
+            ],
+            "Subnets": [
+              {
+                "Ref": "ContainerVpcPrivateSubnet1SubnetEE682A91",
+              },
+              {
+                "Ref": "ContainerVpcPrivateSubnet2Subnet3FD94ECF",
+              },
+              {
+                "Ref": "ContainerVpcPrivateSubnet3Subnet2C7BA7E9",
+              },
+            ],
+          },
+        },
+        "Tags": [
+          {
+            "Key": "CkComponents",
+            "Value": "2.128.0",
+          },
+          {
+            "Key": "CkVendor",
+            "Value": "CloudKitect",
+          },
+        ],
+        "TaskDefinition": {
+          "Ref": "ContainerTestServiceFargateTaskDef5B2A61BB",
+        },
+      },
+      "Type": "AWS::ECS::Service",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "ContainerTestServiceFargateSvcTaskCountTarget7AC759E9": {
+      "DependsOn": [
+        "ContainerTestServiceFargateTaskDefTaskRole37C858E6",
+      ],
+      "Properties": {
+        "MaxCapacity": 10,
+        "MinCapacity": 1,
+        "ResourceId": {
+          "Fn::Join": [
+            "",
+            [
+              "service/",
+              {
+                "Ref": "ContainerClusterC7EDAA3A",
+              },
+              "/",
+              {
+                "Fn::GetAtt": [
+                  "ContainerTestServiceFargateSvcService6C2AFA59",
+                  "Name",
+                ],
+              },
+            ],
+          ],
+        },
+        "RoleARN": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition",
+              },
+              ":iam::123:role/aws-service-role/ecs.application-autoscaling.amazonaws.com/AWSServiceRoleForApplicationAutoScaling_ECSService",
+            ],
+          ],
+        },
+        "ScalableDimension": "ecs:service:DesiredCount",
+        "ServiceNamespace": "ecs",
+      },
+      "Type": "AWS::ApplicationAutoScaling::ScalableTarget",
+    },
+    "ContainerTestServiceFargateSvcTaskCountTargetTestServiceCpuScaling53527108": {
+      "DependsOn": [
+        "ContainerTestServiceFargateTaskDefTaskRole37C858E6",
+      ],
+      "Properties": {
+        "PolicyName": "TestStackContainerTestServiceFargateSvcTaskCountTargetTestServiceCpuScalingA8D48AB1",
+        "PolicyType": "TargetTrackingScaling",
+        "ScalingTargetId": {
+          "Ref": "ContainerTestServiceFargateSvcTaskCountTarget7AC759E9",
+        },
+        "TargetTrackingScalingPolicyConfiguration": {
+          "PredefinedMetricSpecification": {
+            "PredefinedMetricType": "ECSServiceAverageCPUUtilization",
+          },
+          "TargetValue": 60,
+        },
+      },
+      "Type": "AWS::ApplicationAutoScaling::ScalingPolicy",
+    },
+    "ContainerTestServiceFargateSvcTaskCountTargetTestServiceMemoryScaling1B5D27C7": {
+      "DependsOn": [
+        "ContainerTestServiceFargateTaskDefTaskRole37C858E6",
+      ],
+      "Properties": {
+        "PolicyName": "TestStackContainerTestServiceFargateSvcTaskCountTargetTestServiceMemoryScalingC82A79A5",
+        "PolicyType": "TargetTrackingScaling",
+        "ScalingTargetId": {
+          "Ref": "ContainerTestServiceFargateSvcTaskCountTarget7AC759E9",
+        },
+        "TargetTrackingScalingPolicyConfiguration": {
+          "PredefinedMetricSpecification": {
+            "PredefinedMetricType": "ECSServiceAverageMemoryUtilization",
+          },
+          "TargetValue": 70,
+        },
+      },
+      "Type": "AWS::ApplicationAutoScaling::ScalingPolicy",
+    },
+    "ContainerTestServiceFargateTaskDef5B2A61BB": {
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "ContainerDefinitions": [
+          {
+            "Essential": true,
+            "Image": {
+              "Fn::Join": [
+                "",
+                [
+                  "326613709743.dkr.ecr.us-east-1.",
+                  {
+                    "Ref": "AWS::URLSuffix",
+                  },
+                  "/api:1.0",
+                ],
+              ],
+            },
+            "LogConfiguration": {
+              "LogDriver": "awslogs",
+              "Options": {
+                "awslogs-group": {
+                  "Ref": "ContainerTestServiceLogGroup7A33E0E0",
+                },
+                "awslogs-region": "us-east-1",
+                "awslogs-stream-prefix": "TestServiceLogs",
+                "mode": "non-blocking",
+              },
+            },
+            "Name": "TestServiceContainer",
+            "PortMappings": [
+              {
+                "ContainerPort": 80,
+                "Protocol": "tcp",
+              },
+            ],
+          },
+        ],
+        "Cpu": "2048",
+        "EphemeralStorage": {
+          "SizeInGiB": 50,
+        },
+        "ExecutionRoleArn": {
+          "Fn::GetAtt": [
+            "ContainerTestServiceFargateTaskDefExecutionRoleD655576D",
+            "Arn",
+          ],
+        },
+        "Family": "TestStackContainerTestServiceFargateTaskDefE24DB51C",
+        "Memory": "4096",
+        "NetworkMode": "awsvpc",
+        "RequiresCompatibilities": [
+          "FARGATE",
+        ],
+        "Tags": [
+          {
+            "Key": "CkComponents",
+            "Value": "2.128.0",
+          },
+          {
+            "Key": "CkVendor",
+            "Value": "CloudKitect",
+          },
+        ],
+        "TaskRoleArn": {
+          "Fn::GetAtt": [
+            "ContainerTestServiceFargateTaskDefTaskRole37C858E6",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::ECS::TaskDefinition",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "ContainerTestServiceFargateTaskDefExecutionRoleD655576D": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "ecs-tasks.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "Tags": [
+          {
+            "Key": "CkComponents",
+            "Value": "2.128.0",
+          },
+          {
+            "Key": "CkVendor",
+            "Value": "CloudKitect",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "ContainerTestServiceFargateTaskDefExecutionRoleDefaultPolicy6684E0ED": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "ecr:BatchCheckLayerAvailability",
+                "ecr:GetDownloadUrlForLayer",
+                "ecr:BatchGetImage",
+              ],
+              "Effect": "Allow",
+              "Resource": "arn:aws:ecr:us-east-1:326613709743:repository/api",
+            },
+            {
+              "Action": "ecr:GetAuthorizationToken",
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+            {
+              "Action": [
+                "logs:CreateLogStream",
+                "logs:PutLogEvents",
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "ContainerTestServiceLogGroup7A33E0E0",
+                  "Arn",
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "ContainerTestServiceFargateTaskDefExecutionRoleDefaultPolicy6684E0ED",
+        "Roles": [
+          {
+            "Ref": "ContainerTestServiceFargateTaskDefExecutionRoleD655576D",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "ContainerTestServiceFargateTaskDefTaskRole37C858E6": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "ecs-tasks.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "Tags": [
+          {
+            "Key": "CkComponents",
+            "Value": "2.128.0",
+          },
+          {
+            "Key": "CkVendor",
+            "Value": "CloudKitect",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "ContainerTestServiceLogGroup7A33E0E0": {
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "RetentionInDays": 731,
+        "Tags": [
+          {
+            "Key": "CkComponents",
+            "Value": "2.128.0",
+          },
+          {
+            "Key": "CkVendor",
+            "Value": "CloudKitect",
+          },
+        ],
+      },
+      "Type": "AWS::Logs::LogGroup",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "ContainerVpc5E664F41": {
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "CidrBlock": "10.0.0.0/16",
+        "EnableDnsHostnames": true,
+        "EnableDnsSupport": true,
+        "InstanceTenancy": "default",
+        "Tags": [
+          {
+            "Key": "CkComponents",
+            "Value": "2.128.0",
+          },
+          {
+            "Key": "CkVendor",
+            "Value": "CloudKitect",
+          },
+          {
+            "Key": "Name",
+            "Value": "TestStack/Container/Vpc",
+          },
+        ],
+      },
+      "Type": "AWS::EC2::VPC",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "ContainerVpcIGW33BDBDF8": {
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "CkComponents",
+            "Value": "2.128.0",
+          },
+          {
+            "Key": "CkVendor",
+            "Value": "CloudKitect",
+          },
+          {
+            "Key": "Name",
+            "Value": "TestStack/Container/Vpc",
+          },
+        ],
+      },
+      "Type": "AWS::EC2::InternetGateway",
+    },
+    "ContainerVpcIsolatedSubnet1RouteTable9CAA3ACD": {
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "CkComponents",
+            "Value": "2.128.0",
+          },
+          {
+            "Key": "CkVendor",
+            "Value": "CloudKitect",
+          },
+          {
+            "Key": "Name",
+            "Value": "TestStack/Container/Vpc/IsolatedSubnet1",
+          },
+        ],
+        "VpcId": {
+          "Ref": "ContainerVpc5E664F41",
+        },
+      },
+      "Type": "AWS::EC2::RouteTable",
+    },
+    "ContainerVpcIsolatedSubnet1RouteTableAssociationFE3777B2": {
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "ContainerVpcIsolatedSubnet1RouteTable9CAA3ACD",
+        },
+        "SubnetId": {
+          "Ref": "ContainerVpcIsolatedSubnet1Subnet7F30C921",
+        },
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+    },
+    "ContainerVpcIsolatedSubnet1Subnet7F30C921": {
+      "Properties": {
+        "AvailabilityZone": "dummy1a",
+        "CidrBlock": "10.0.6.0/24",
+        "MapPublicIpOnLaunch": false,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "Isolated",
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Isolated",
+          },
+          {
+            "Key": "CkComponents",
+            "Value": "2.128.0",
+          },
+          {
+            "Key": "CkVendor",
+            "Value": "CloudKitect",
+          },
+          {
+            "Key": "Name",
+            "Value": "TestStack/Container/Vpc/IsolatedSubnet1",
+          },
+        ],
+        "VpcId": {
+          "Ref": "ContainerVpc5E664F41",
+        },
+      },
+      "Type": "AWS::EC2::Subnet",
+    },
+    "ContainerVpcIsolatedSubnet2RouteTable86ED9BA8": {
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "CkComponents",
+            "Value": "2.128.0",
+          },
+          {
+            "Key": "CkVendor",
+            "Value": "CloudKitect",
+          },
+          {
+            "Key": "Name",
+            "Value": "TestStack/Container/Vpc/IsolatedSubnet2",
+          },
+        ],
+        "VpcId": {
+          "Ref": "ContainerVpc5E664F41",
+        },
+      },
+      "Type": "AWS::EC2::RouteTable",
+    },
+    "ContainerVpcIsolatedSubnet2RouteTableAssociation990A6CE8": {
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "ContainerVpcIsolatedSubnet2RouteTable86ED9BA8",
+        },
+        "SubnetId": {
+          "Ref": "ContainerVpcIsolatedSubnet2Subnet440879B2",
+        },
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+    },
+    "ContainerVpcIsolatedSubnet2Subnet440879B2": {
+      "Properties": {
+        "AvailabilityZone": "dummy1b",
+        "CidrBlock": "10.0.7.0/24",
+        "MapPublicIpOnLaunch": false,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "Isolated",
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Isolated",
+          },
+          {
+            "Key": "CkComponents",
+            "Value": "2.128.0",
+          },
+          {
+            "Key": "CkVendor",
+            "Value": "CloudKitect",
+          },
+          {
+            "Key": "Name",
+            "Value": "TestStack/Container/Vpc/IsolatedSubnet2",
+          },
+        ],
+        "VpcId": {
+          "Ref": "ContainerVpc5E664F41",
+        },
+      },
+      "Type": "AWS::EC2::Subnet",
+    },
+    "ContainerVpcIsolatedSubnet3RouteTable75674F52": {
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "CkComponents",
+            "Value": "2.128.0",
+          },
+          {
+            "Key": "CkVendor",
+            "Value": "CloudKitect",
+          },
+          {
+            "Key": "Name",
+            "Value": "TestStack/Container/Vpc/IsolatedSubnet3",
+          },
+        ],
+        "VpcId": {
+          "Ref": "ContainerVpc5E664F41",
+        },
+      },
+      "Type": "AWS::EC2::RouteTable",
+    },
+    "ContainerVpcIsolatedSubnet3RouteTableAssociationC8C94D92": {
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "ContainerVpcIsolatedSubnet3RouteTable75674F52",
+        },
+        "SubnetId": {
+          "Ref": "ContainerVpcIsolatedSubnet3SubnetCAABA37E",
+        },
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+    },
+    "ContainerVpcIsolatedSubnet3SubnetCAABA37E": {
+      "Properties": {
+        "AvailabilityZone": "dummy1c",
+        "CidrBlock": "10.0.8.0/24",
+        "MapPublicIpOnLaunch": false,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "Isolated",
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Isolated",
+          },
+          {
+            "Key": "CkComponents",
+            "Value": "2.128.0",
+          },
+          {
+            "Key": "CkVendor",
+            "Value": "CloudKitect",
+          },
+          {
+            "Key": "Name",
+            "Value": "TestStack/Container/Vpc/IsolatedSubnet3",
+          },
+        ],
+        "VpcId": {
+          "Ref": "ContainerVpc5E664F41",
+        },
+      },
+      "Type": "AWS::EC2::Subnet",
+    },
+    "ContainerVpcPrivateSubnet1DefaultRoute273E2480": {
+      "Properties": {
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "NatGatewayId": {
+          "Ref": "ContainerVpcPublicSubnet1NATGatewayA440FF2E",
+        },
+        "RouteTableId": {
+          "Ref": "ContainerVpcPrivateSubnet1RouteTableA637038F",
+        },
+      },
+      "Type": "AWS::EC2::Route",
+    },
+    "ContainerVpcPrivateSubnet1RouteTableA637038F": {
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "CkComponents",
+            "Value": "2.128.0",
+          },
+          {
+            "Key": "CkVendor",
+            "Value": "CloudKitect",
+          },
+          {
+            "Key": "Name",
+            "Value": "TestStack/Container/Vpc/PrivateSubnet1",
+          },
+        ],
+        "VpcId": {
+          "Ref": "ContainerVpc5E664F41",
+        },
+      },
+      "Type": "AWS::EC2::RouteTable",
+    },
+    "ContainerVpcPrivateSubnet1RouteTableAssociation472C45E8": {
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "ContainerVpcPrivateSubnet1RouteTableA637038F",
+        },
+        "SubnetId": {
+          "Ref": "ContainerVpcPrivateSubnet1SubnetEE682A91",
+        },
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+    },
+    "ContainerVpcPrivateSubnet1SubnetEE682A91": {
+      "Properties": {
+        "AvailabilityZone": "dummy1a",
+        "CidrBlock": "10.0.3.0/24",
+        "MapPublicIpOnLaunch": false,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "Private",
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Private",
+          },
+          {
+            "Key": "CkComponents",
+            "Value": "2.128.0",
+          },
+          {
+            "Key": "CkVendor",
+            "Value": "CloudKitect",
+          },
+          {
+            "Key": "Name",
+            "Value": "TestStack/Container/Vpc/PrivateSubnet1",
+          },
+        ],
+        "VpcId": {
+          "Ref": "ContainerVpc5E664F41",
+        },
+      },
+      "Type": "AWS::EC2::Subnet",
+    },
+    "ContainerVpcPrivateSubnet2DefaultRouteC445B04D": {
+      "Properties": {
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "NatGatewayId": {
+          "Ref": "ContainerVpcPublicSubnet2NATGateway60DFB02D",
+        },
+        "RouteTableId": {
+          "Ref": "ContainerVpcPrivateSubnet2RouteTable726EE44E",
+        },
+      },
+      "Type": "AWS::EC2::Route",
+    },
+    "ContainerVpcPrivateSubnet2RouteTable726EE44E": {
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "CkComponents",
+            "Value": "2.128.0",
+          },
+          {
+            "Key": "CkVendor",
+            "Value": "CloudKitect",
+          },
+          {
+            "Key": "Name",
+            "Value": "TestStack/Container/Vpc/PrivateSubnet2",
+          },
+        ],
+        "VpcId": {
+          "Ref": "ContainerVpc5E664F41",
+        },
+      },
+      "Type": "AWS::EC2::RouteTable",
+    },
+    "ContainerVpcPrivateSubnet2RouteTableAssociation9CD7BC6A": {
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "ContainerVpcPrivateSubnet2RouteTable726EE44E",
+        },
+        "SubnetId": {
+          "Ref": "ContainerVpcPrivateSubnet2Subnet3FD94ECF",
+        },
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+    },
+    "ContainerVpcPrivateSubnet2Subnet3FD94ECF": {
+      "Properties": {
+        "AvailabilityZone": "dummy1b",
+        "CidrBlock": "10.0.4.0/24",
+        "MapPublicIpOnLaunch": false,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "Private",
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Private",
+          },
+          {
+            "Key": "CkComponents",
+            "Value": "2.128.0",
+          },
+          {
+            "Key": "CkVendor",
+            "Value": "CloudKitect",
+          },
+          {
+            "Key": "Name",
+            "Value": "TestStack/Container/Vpc/PrivateSubnet2",
+          },
+        ],
+        "VpcId": {
+          "Ref": "ContainerVpc5E664F41",
+        },
+      },
+      "Type": "AWS::EC2::Subnet",
+    },
+    "ContainerVpcPrivateSubnet3DefaultRoute18875565": {
+      "Properties": {
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "NatGatewayId": {
+          "Ref": "ContainerVpcPublicSubnet1NATGatewayA440FF2E",
+        },
+        "RouteTableId": {
+          "Ref": "ContainerVpcPrivateSubnet3RouteTable924757BB",
+        },
+      },
+      "Type": "AWS::EC2::Route",
+    },
+    "ContainerVpcPrivateSubnet3RouteTable924757BB": {
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "CkComponents",
+            "Value": "2.128.0",
+          },
+          {
+            "Key": "CkVendor",
+            "Value": "CloudKitect",
+          },
+          {
+            "Key": "Name",
+            "Value": "TestStack/Container/Vpc/PrivateSubnet3",
+          },
+        ],
+        "VpcId": {
+          "Ref": "ContainerVpc5E664F41",
+        },
+      },
+      "Type": "AWS::EC2::RouteTable",
+    },
+    "ContainerVpcPrivateSubnet3RouteTableAssociation73BFC4F3": {
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "ContainerVpcPrivateSubnet3RouteTable924757BB",
+        },
+        "SubnetId": {
+          "Ref": "ContainerVpcPrivateSubnet3Subnet2C7BA7E9",
+        },
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+    },
+    "ContainerVpcPrivateSubnet3Subnet2C7BA7E9": {
+      "Properties": {
+        "AvailabilityZone": "dummy1c",
+        "CidrBlock": "10.0.5.0/24",
+        "MapPublicIpOnLaunch": false,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "Private",
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Private",
+          },
+          {
+            "Key": "CkComponents",
+            "Value": "2.128.0",
+          },
+          {
+            "Key": "CkVendor",
+            "Value": "CloudKitect",
+          },
+          {
+            "Key": "Name",
+            "Value": "TestStack/Container/Vpc/PrivateSubnet3",
+          },
+        ],
+        "VpcId": {
+          "Ref": "ContainerVpc5E664F41",
+        },
+      },
+      "Type": "AWS::EC2::Subnet",
+    },
+    "ContainerVpcPublicSubnet1DefaultRouteD0030B16": {
+      "DependsOn": [
+        "ContainerVpcVPCGW436AAFD8",
+      ],
+      "Properties": {
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "GatewayId": {
+          "Ref": "ContainerVpcIGW33BDBDF8",
+        },
+        "RouteTableId": {
+          "Ref": "ContainerVpcPublicSubnet1RouteTable16B28CFF",
+        },
+      },
+      "Type": "AWS::EC2::Route",
+    },
+    "ContainerVpcPublicSubnet1EIP70E7BC9B": {
+      "Properties": {
+        "Domain": "vpc",
+        "Tags": [
+          {
+            "Key": "CkComponents",
+            "Value": "2.128.0",
+          },
+          {
+            "Key": "CkVendor",
+            "Value": "CloudKitect",
+          },
+          {
+            "Key": "Name",
+            "Value": "TestStack/Container/Vpc/PublicSubnet1",
+          },
+        ],
+      },
+      "Type": "AWS::EC2::EIP",
+    },
+    "ContainerVpcPublicSubnet1NATGatewayA440FF2E": {
+      "DependsOn": [
+        "ContainerVpcPublicSubnet1DefaultRouteD0030B16",
+        "ContainerVpcPublicSubnet1RouteTableAssociationC1F955B0",
+      ],
+      "Properties": {
+        "AllocationId": {
+          "Fn::GetAtt": [
+            "ContainerVpcPublicSubnet1EIP70E7BC9B",
+            "AllocationId",
+          ],
+        },
+        "SubnetId": {
+          "Ref": "ContainerVpcPublicSubnet1Subnet035629B6",
+        },
+        "Tags": [
+          {
+            "Key": "CkComponents",
+            "Value": "2.128.0",
+          },
+          {
+            "Key": "CkVendor",
+            "Value": "CloudKitect",
+          },
+          {
+            "Key": "Name",
+            "Value": "TestStack/Container/Vpc/PublicSubnet1",
+          },
+        ],
+      },
+      "Type": "AWS::EC2::NatGateway",
+    },
+    "ContainerVpcPublicSubnet1RouteTable16B28CFF": {
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "CkComponents",
+            "Value": "2.128.0",
+          },
+          {
+            "Key": "CkVendor",
+            "Value": "CloudKitect",
+          },
+          {
+            "Key": "Name",
+            "Value": "TestStack/Container/Vpc/PublicSubnet1",
+          },
+        ],
+        "VpcId": {
+          "Ref": "ContainerVpc5E664F41",
+        },
+      },
+      "Type": "AWS::EC2::RouteTable",
+    },
+    "ContainerVpcPublicSubnet1RouteTableAssociationC1F955B0": {
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "ContainerVpcPublicSubnet1RouteTable16B28CFF",
+        },
+        "SubnetId": {
+          "Ref": "ContainerVpcPublicSubnet1Subnet035629B6",
+        },
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+    },
+    "ContainerVpcPublicSubnet1Subnet035629B6": {
+      "Properties": {
+        "AvailabilityZone": "dummy1a",
+        "CidrBlock": "10.0.0.0/24",
+        "MapPublicIpOnLaunch": true,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "Public",
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Public",
+          },
+          {
+            "Key": "CkComponents",
+            "Value": "2.128.0",
+          },
+          {
+            "Key": "CkVendor",
+            "Value": "CloudKitect",
+          },
+          {
+            "Key": "Name",
+            "Value": "TestStack/Container/Vpc/PublicSubnet1",
+          },
+        ],
+        "VpcId": {
+          "Ref": "ContainerVpc5E664F41",
+        },
+      },
+      "Type": "AWS::EC2::Subnet",
+    },
+    "ContainerVpcPublicSubnet2DefaultRouteB6A2DCBD": {
+      "DependsOn": [
+        "ContainerVpcVPCGW436AAFD8",
+      ],
+      "Properties": {
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "GatewayId": {
+          "Ref": "ContainerVpcIGW33BDBDF8",
+        },
+        "RouteTableId": {
+          "Ref": "ContainerVpcPublicSubnet2RouteTableE73BAA1B",
+        },
+      },
+      "Type": "AWS::EC2::Route",
+    },
+    "ContainerVpcPublicSubnet2EIP186C4E52": {
+      "Properties": {
+        "Domain": "vpc",
+        "Tags": [
+          {
+            "Key": "CkComponents",
+            "Value": "2.128.0",
+          },
+          {
+            "Key": "CkVendor",
+            "Value": "CloudKitect",
+          },
+          {
+            "Key": "Name",
+            "Value": "TestStack/Container/Vpc/PublicSubnet2",
+          },
+        ],
+      },
+      "Type": "AWS::EC2::EIP",
+    },
+    "ContainerVpcPublicSubnet2NATGateway60DFB02D": {
+      "DependsOn": [
+        "ContainerVpcPublicSubnet2DefaultRouteB6A2DCBD",
+        "ContainerVpcPublicSubnet2RouteTableAssociation8BB25F09",
+      ],
+      "Properties": {
+        "AllocationId": {
+          "Fn::GetAtt": [
+            "ContainerVpcPublicSubnet2EIP186C4E52",
+            "AllocationId",
+          ],
+        },
+        "SubnetId": {
+          "Ref": "ContainerVpcPublicSubnet2SubnetF2EAFAB3",
+        },
+        "Tags": [
+          {
+            "Key": "CkComponents",
+            "Value": "2.128.0",
+          },
+          {
+            "Key": "CkVendor",
+            "Value": "CloudKitect",
+          },
+          {
+            "Key": "Name",
+            "Value": "TestStack/Container/Vpc/PublicSubnet2",
+          },
+        ],
+      },
+      "Type": "AWS::EC2::NatGateway",
+    },
+    "ContainerVpcPublicSubnet2RouteTableAssociation8BB25F09": {
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "ContainerVpcPublicSubnet2RouteTableE73BAA1B",
+        },
+        "SubnetId": {
+          "Ref": "ContainerVpcPublicSubnet2SubnetF2EAFAB3",
+        },
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+    },
+    "ContainerVpcPublicSubnet2RouteTableE73BAA1B": {
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "CkComponents",
+            "Value": "2.128.0",
+          },
+          {
+            "Key": "CkVendor",
+            "Value": "CloudKitect",
+          },
+          {
+            "Key": "Name",
+            "Value": "TestStack/Container/Vpc/PublicSubnet2",
+          },
+        ],
+        "VpcId": {
+          "Ref": "ContainerVpc5E664F41",
+        },
+      },
+      "Type": "AWS::EC2::RouteTable",
+    },
+    "ContainerVpcPublicSubnet2SubnetF2EAFAB3": {
+      "Properties": {
+        "AvailabilityZone": "dummy1b",
+        "CidrBlock": "10.0.1.0/24",
+        "MapPublicIpOnLaunch": true,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "Public",
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Public",
+          },
+          {
+            "Key": "CkComponents",
+            "Value": "2.128.0",
+          },
+          {
+            "Key": "CkVendor",
+            "Value": "CloudKitect",
+          },
+          {
+            "Key": "Name",
+            "Value": "TestStack/Container/Vpc/PublicSubnet2",
+          },
+        ],
+        "VpcId": {
+          "Ref": "ContainerVpc5E664F41",
+        },
+      },
+      "Type": "AWS::EC2::Subnet",
+    },
+    "ContainerVpcPublicSubnet3DefaultRouteC8AADFE4": {
+      "DependsOn": [
+        "ContainerVpcVPCGW436AAFD8",
+      ],
+      "Properties": {
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "GatewayId": {
+          "Ref": "ContainerVpcIGW33BDBDF8",
+        },
+        "RouteTableId": {
+          "Ref": "ContainerVpcPublicSubnet3RouteTable321A44BD",
+        },
+      },
+      "Type": "AWS::EC2::Route",
+    },
+    "ContainerVpcPublicSubnet3RouteTable321A44BD": {
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "CkComponents",
+            "Value": "2.128.0",
+          },
+          {
+            "Key": "CkVendor",
+            "Value": "CloudKitect",
+          },
+          {
+            "Key": "Name",
+            "Value": "TestStack/Container/Vpc/PublicSubnet3",
+          },
+        ],
+        "VpcId": {
+          "Ref": "ContainerVpc5E664F41",
+        },
+      },
+      "Type": "AWS::EC2::RouteTable",
+    },
+    "ContainerVpcPublicSubnet3RouteTableAssociation93528F4B": {
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "ContainerVpcPublicSubnet3RouteTable321A44BD",
+        },
+        "SubnetId": {
+          "Ref": "ContainerVpcPublicSubnet3SubnetEAC6F17B",
+        },
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+    },
+    "ContainerVpcPublicSubnet3SubnetEAC6F17B": {
+      "Properties": {
+        "AvailabilityZone": "dummy1c",
+        "CidrBlock": "10.0.2.0/24",
+        "MapPublicIpOnLaunch": true,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "Public",
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Public",
+          },
+          {
+            "Key": "CkComponents",
+            "Value": "2.128.0",
+          },
+          {
+            "Key": "CkVendor",
+            "Value": "CloudKitect",
+          },
+          {
+            "Key": "Name",
+            "Value": "TestStack/Container/Vpc/PublicSubnet3",
+          },
+        ],
+        "VpcId": {
+          "Ref": "ContainerVpc5E664F41",
+        },
+      },
+      "Type": "AWS::EC2::Subnet",
+    },
+    "ContainerVpcRestrictDefaultSecurityGroupCustomResource788296C1": {
+      "DeletionPolicy": "Delete",
+      "Properties": {
+        "Account": "123",
+        "DefaultSecurityGroupId": {
+          "Fn::GetAtt": [
+            "ContainerVpc5E664F41",
+            "DefaultSecurityGroup",
+          ],
+        },
+        "ServiceToken": {
+          "Fn::GetAtt": [
+            "CustomVpcRestrictDefaultSGCustomResourceProviderHandlerDC833E5E",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "Custom::VpcRestrictDefaultSG",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "ContainerVpcVPCGW436AAFD8": {
+      "Properties": {
+        "InternetGatewayId": {
+          "Ref": "ContainerVpcIGW33BDBDF8",
+        },
+        "VpcId": {
+          "Ref": "ContainerVpc5E664F41",
+        },
+      },
+      "Type": "AWS::EC2::VPCGatewayAttachment",
+    },
+    "CustomVpcRestrictDefaultSGCustomResourceProviderHandlerDC833E5E": {
+      "DependsOn": [
+        "CustomVpcRestrictDefaultSGCustomResourceProviderRole26592FE0",
+      ],
+      "Properties": {
+        "Code": {
+          "S3Bucket": "cdk-hnb659fds-assets-123-us-east-1",
+          "S3Key": "ee7de53d64cc9d6248fa6aa550f92358f6c907b5efd6f3298aeab1b5e7ea358a.zip",
+        },
+        "Description": "Lambda function for removing all inbound/outbound rules from the VPC default security group",
+        "Handler": "__entrypoint__.handler",
+        "MemorySize": 128,
+        "Role": {
+          "Fn::GetAtt": [
+            "CustomVpcRestrictDefaultSGCustomResourceProviderRole26592FE0",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs18.x",
+        "Timeout": 900,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "CustomVpcRestrictDefaultSGCustomResourceProviderRole26592FE0": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Sub": "arn:\${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+          },
+        ],
+        "Policies": [
+          {
+            "PolicyDocument": {
+              "Statement": [
+                {
+                  "Action": [
+                    "ec2:AuthorizeSecurityGroupIngress",
+                    "ec2:AuthorizeSecurityGroupEgress",
+                    "ec2:RevokeSecurityGroupIngress",
+                    "ec2:RevokeSecurityGroupEgress",
+                  ],
+                  "Effect": "Allow",
+                  "Resource": [
+                    {
+                      "Fn::Join": [
+                        "",
+                        [
+                          "arn:",
+                          {
+                            "Ref": "AWS::Partition",
+                          },
+                          ":ec2:us-east-1:123:security-group/",
+                          {
+                            "Fn::GetAtt": [
+                              "ContainerVpc5E664F41",
+                              "DefaultSecurityGroup",
+                            ],
+                          },
+                        ],
+                      ],
+                    },
+                  ],
+                },
+              ],
+              "Version": "2012-10-17",
+            },
+            "PolicyName": "Inline",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+  },
+  "Rules": {
+    "CheckBootstrapVersion": {
+      "Assertions": [
+        {
+          "Assert": {
+            "Fn::Not": [
+              {
+                "Fn::Contains": [
+                  [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                  ],
+                  {
+                    "Ref": "BootstrapVersion",
+                  },
+                ],
+              },
+            ],
+          },
+          "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI.",
+        },
+      ],
+    },
+  },
+}
+`;
