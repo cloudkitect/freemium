@@ -141,8 +141,8 @@ importers:
   packages/@cloudkitect/patterns:
     dependencies:
       '@cloudkitect/components':
-        specifier: ^0.0.0
-        version: link:../components
+        specifier: 1.2.0
+        version: 1.2.0(aws-cdk-lib@2.137.0)(constructs@10.3.0)
     devDependencies:
       '@types/jest':
         specifier: ^29.5.12
@@ -615,6 +615,16 @@ packages:
   /@bcoe/v8-coverage@0.2.3:
     resolution: {integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==}
     dev: true
+
+  /@cloudkitect/components@1.2.0(aws-cdk-lib@2.137.0)(constructs@10.3.0):
+    resolution: {integrity: sha512-RTYHApJMaghpwVv5INQcELo1KP1sJA7BiaL9WHyHik7QgSC7QQhyItpOqVqm3UYXGe9fS8GBKsh4Do/L+QVuiw==}
+    peerDependencies:
+      aws-cdk-lib: ^2.137.0
+      constructs: ^10.3.0
+    dependencies:
+      aws-cdk-lib: 2.137.0(constructs@10.3.0)
+      constructs: 10.3.0
+    dev: false
 
   /@colors/colors@1.5.0:
     resolution: {integrity: sha512-ooWCrlZP11i8GImSjTHYHLkvFDP48nS4+204nGb1RiX/WXYHmJA2III9/e2DWVabCESdW7hBAEzHRqUn9OUVvQ==}
