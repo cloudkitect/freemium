@@ -2,3 +2,4 @@
 
 packages:
   - packages/@cloudkitect/components
+  - packages/@cloudkitect/patterns
