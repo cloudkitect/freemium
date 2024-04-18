@@ -83,16 +83,21 @@ const patterns = new AwsCdkConstructLibrary({
     distName: 'cloudkitect.patterns',
     module: 'cloudkitect.patterns'
   },
+  publishToNuget: {
+    dotNetNamespace: 'CloudKitect.Patterns',
+    packageId: 'CloudKitect.Patterns'
+  }
 });
 
-patterns.addDeps(`${scope}/components@^1.3.3`)
-patterns.addPeerDeps(`${scope}/components@^1.3.3`)
-patterns.addDevDeps(`${scope}/components@1.3.3`)
+patterns.addDeps(`${scope}/components@^1.4.0`)
+patterns.addPeerDeps(`${scope}/components@^1.4.0`)
+patterns.addDevDeps(`${scope}/components@1.4.0`)
 patterns.synth();
 
 const patternReleaseYaml = project.tryFindObjectFile('.github/workflows/release_cloudkitect-patterns.yml');
 patternReleaseYaml!.addOverride('jobs.release_npm.steps.5.run', 'cd .repo && pnpm i --no-frozen-lockfile')
 patternReleaseYaml!.addOverride('jobs.release_pypi.steps.6.run', 'cd .repo && pnpm i --no-frozen-lockfile')
+patternReleaseYaml!.addOverride('jobs.release_nuget.steps.6.run', 'cd .repo && pnpm i --no-frozen-lockfile')
 
 
 const exclusions = ['.DS_Store', '.idea', '*.iml']
