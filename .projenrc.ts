@@ -59,12 +59,17 @@ const components = new AwsCdkConstructLibrary({
     distName: 'cloudkitect.components',
     module: 'cloudkitect.components'
   },
+  publishToNuget: {
+    dotNetNamespace: 'CloudKitect.Components',
+    packageId: 'CloudKitect.Components'
+  }
 });
 components.synth()
 
 const releaseYaml = project.tryFindObjectFile('.github/workflows/release_cloudkitect-components.yml');
 releaseYaml!.addOverride('jobs.release_npm.steps.5.run', 'cd .repo && pnpm i --no-frozen-lockfile')
 releaseYaml!.addOverride('jobs.release_pypi.steps.6.run', 'cd .repo && pnpm i --no-frozen-lockfile')
+releaseYaml!.addOverride('jobs.release_nuget.steps.6.run', 'cd .repo && pnpm i --no-frozen-lockfile')
 
 const patterns = new AwsCdkConstructLibrary({
   ...subProjectSettings,
