@@ -67,9 +67,9 @@ const patterns = new AwsCdkConstructLibrary({
     "cloud components", "cdk constructs", "patterns", "terraform", "cloud compliance", "well architected"]
 });
 
-patterns.addDeps(`${scope}/components@1.2.0`)
-patterns.addPeerDeps(`${scope}/components@1.2.0`)
-patterns.addDevDeps(`${scope}/components@1.2.0`)
+patterns.addDeps(`${scope}/components@1.2.2`)
+patterns.addPeerDeps(`${scope}/components@1.2.2`)
+patterns.addDevDeps(`${scope}/components@1.2.2`)
 patterns.synth();
 
 const patternReleaseYaml = project.tryFindObjectFile('.github/workflows/release_cloudkitect-patterns.yml');
