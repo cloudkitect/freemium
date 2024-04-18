@@ -135,6 +135,13 @@
         "cwd": "packages/@cloudkitect/patterns"
       }
     },
+    "package:dotnet": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "pnpm exec projen package:dotnet",
+        "cwd": "packages/@cloudkitect/patterns"
+      }
+    },
     "docgen": {
       "executor": "nx:run-commands",
       "options": {

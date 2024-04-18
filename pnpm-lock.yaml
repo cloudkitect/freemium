@@ -141,8 +141,8 @@ importers:
   packages/@cloudkitect/patterns:
     dependencies:
       '@cloudkitect/components':
-        specifier: ^1.3.3
-        version: 1.3.3(aws-cdk-lib@2.137.0)(constructs@10.3.0)
+        specifier: ^1.4.0
+        version: 1.4.0(aws-cdk-lib@2.137.0)(constructs@10.3.0)
     devDependencies:
       '@types/jest':
         specifier: ^29.5.12
@@ -652,8 +652,8 @@ packages:
     resolution: {integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==}
     dev: true
 
-  /@cloudkitect/components@1.3.3(aws-cdk-lib@2.137.0)(constructs@10.3.0):
-    resolution: {integrity: sha512-mYLYRt7cU18ceD00DMoJHC28GcnRDd+fEy9EHCjN31uxdkgycr7nHiAa2oeOcp9FSPxWmBUvOKeVjf/QoTHp6A==}
+  /@cloudkitect/components@1.4.0(aws-cdk-lib@2.137.0)(constructs@10.3.0):
+    resolution: {integrity: sha512-f2vgm/Xh8BVbmj5U9F3Gxaxms/P7+gwPlpSCetAU455Cc6LMRUw4rJ92mHRE038y92q/syuV3dmKY673jLBTaA==}
     peerDependencies:
       aws-cdk-lib: ^2.137.0
       constructs: ^10.3.0
@@ -3214,7 +3214,7 @@ packages:
     dependencies:
       semver: 7.6.0
       shelljs: 0.8.5
-      typescript: 5.5.0-dev.20240417
+      typescript: 5.5.0-dev.20240418
     dev: true
 
   /duplexer@0.1.2:
@@ -8018,8 +8018,8 @@ packages:
     hasBin: true
     dev: true
 
-  /typescript@5.5.0-dev.20240417:
-    resolution: {integrity: sha512-BjMYWxzDLRaNlnnMC/NHf0uUIZEnw5VLe7q0h7hEi5Q4H1XoIDdjBjk6stBS2nj6R/HrsdEqhWdPz6+DLx+sRw==}
+  /typescript@5.5.0-dev.20240418:
+    resolution: {integrity: sha512-IXEx+ooOpKOrkqhof52VRFWPeoNe9kMKrn34AV1DNc+tG94+PxwrZr4F5i+Ed6I8poNJYxecl9Sl9xBRuJhPnA==}
     engines: {node: '>=14.17'}
     hasBin: true
     dev: true
