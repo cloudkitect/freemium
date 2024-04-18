@@ -128,6 +128,13 @@
         "cwd": "packages/@cloudkitect/patterns"
       }
     },
+    "package:python": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "pnpm exec projen package:python",
+        "cwd": "packages/@cloudkitect/patterns"
+      }
+    },
     "docgen": {
       "executor": "nx:run-commands",
       "options": {

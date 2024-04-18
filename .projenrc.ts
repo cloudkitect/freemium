@@ -74,15 +74,21 @@ const patterns = new AwsCdkConstructLibrary({
   outdir: `${packagesPath}/patterns`,
   keywords: ["cloudkitect", "cdk", "freemium", "infrastructure as code", "aws",
     "cloud components", "cdk constructs", "patterns", "terraform", "cloud compliance", "well architected"],
+  publishToPypi: {
+    distName: 'cloudkitect.patterns',
+    module: 'cloudkitect.patterns'
+  },
 });
 
-patterns.addDeps(`${scope}/components@^1.2.2`)
-patterns.addPeerDeps(`${scope}/components@^1.2.2`)
-patterns.addDevDeps(`${scope}/components@1.2.2`)
+patterns.addDeps(`${scope}/components@^1.3.3`)
+patterns.addPeerDeps(`${scope}/components@^1.3.3`)
+patterns.addDevDeps(`${scope}/components@1.3.3`)
 patterns.synth();
 
 const patternReleaseYaml = project.tryFindObjectFile('.github/workflows/release_cloudkitect-patterns.yml');
 patternReleaseYaml!.addOverride('jobs.release_npm.steps.5.run', 'cd .repo && pnpm i --no-frozen-lockfile')
+patternReleaseYaml!.addOverride('jobs.release_pypi.steps.6.run', 'cd .repo && pnpm i --no-frozen-lockfile')
+
 
 const exclusions = ['.DS_Store', '.idea', '*.iml']
 project.gitignore.exclude(...exclusions)
