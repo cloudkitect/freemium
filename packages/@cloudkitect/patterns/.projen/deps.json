@@ -2,7 +2,7 @@
   "dependencies": [
     {
       "name": "@cloudkitect/components",
-      "version": "^1.2.2",
+      "version": "1.2.2",
       "type": "build"
     },
     {
