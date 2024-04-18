@@ -55,6 +55,10 @@ const components = new AwsCdkConstructLibrary({
   outdir: `${packagesPath}/components`,
   keywords: ["cloudkitect", "cdk", "freemium", "infrastructure as code", "aws",
     "cloud components", "cdk constructs", "components", "terraform", "cloud compliance", "well architected"],
+  publishToPypi: {
+    distName: 'cloudkitect.components',
+    module: 'cloudkitect.components'
+  },
 });
 components.synth()
 
@@ -68,12 +72,12 @@ const patterns = new AwsCdkConstructLibrary({
   name: `${scope}/patterns`,
   outdir: `${packagesPath}/patterns`,
   keywords: ["cloudkitect", "cdk", "freemium", "infrastructure as code", "aws",
-    "cloud components", "cdk constructs", "patterns", "terraform", "cloud compliance", "well architected"]
+    "cloud components", "cdk constructs", "patterns", "terraform", "cloud compliance", "well architected"],
 });
 
 patterns.addDeps(`${scope}/components@^1.2.2`)
 patterns.addPeerDeps(`${scope}/components@^1.2.2`)
-patterns.addDevDeps(`${scope}/components@^1.2.2`)
+patterns.addDevDeps(`${scope}/components@1.2.2`)
 patterns.synth();
 
 const patternReleaseYaml = project.tryFindObjectFile('.github/workflows/release_cloudkitect-patterns.yml');
