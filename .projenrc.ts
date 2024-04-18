@@ -49,6 +49,8 @@ const subProjectSettings = {
 
 const components = new AwsCdkConstructLibrary({
   ...subProjectSettings,
+  description: "CloudKitect freemium components are scaled down versions of CloudKitect enhanced components offered as monthly or yearly subscription. These are well architected components that offer" +
+      " out of the box monitoring, alerting and compliance to various standards.",
   name: `${scope}/components`,
   outdir: `${packagesPath}/components`,
   keywords: ["cloudkitect", "cdk", "freemium", "infrastructure as code", "aws",
@@ -61,6 +63,8 @@ releaseYaml!.addOverride('jobs.release_npm.steps.5.run', 'cd .repo && pnpm i --n
 
 const patterns = new AwsCdkConstructLibrary({
   ...subProjectSettings,
+  description: "CloudKitect freemium patterns are built on top of CloudKitect freemium components which comply to various standards. " +
+      "Using these patterns you can host your website, or run your containerized app using ECS Fargate within a couple hours",
   name: `${scope}/patterns`,
   outdir: `${packagesPath}/patterns`,
   keywords: ["cloudkitect", "cdk", "freemium", "infrastructure as code", "aws",

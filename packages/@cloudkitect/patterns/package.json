@@ -1,5 +1,6 @@
 {
   "name": "@cloudkitect/patterns",
+  "description": "CloudKitect freemium patterns are built on top of CloudKitect freemium components which comply to various standards. Using these patterns you can host your website, or run your containerized app using ECS Fargate within a couple hours",
   "repository": {
     "type": "git",
     "url": "https://github.com/cloudkitect/freemium"

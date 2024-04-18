@@ -1,5 +1,6 @@
 {
   "name": "@cloudkitect/components",
+  "description": "CloudKitect freemium components are scaled down versions of CloudKitect enhanced components offered as monthly or yearly subscription. These are well architected components that offer out of the box monitoring, alerting and compliance to various standards.",
   "repository": {
     "type": "git",
     "url": "https://github.com/cloudkitect/freemium"
