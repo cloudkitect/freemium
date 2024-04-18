@@ -32,7 +32,7 @@
     "organization": true
   },
   "devDependencies": {
-    "@cloudkitect/components": "1.2.2",
+    "@cloudkitect/components": "^1.2.2",
     "@types/jest": "^29.5.12",
     "@types/node": "^18",
     "@typescript-eslint/eslint-plugin": "^6",
@@ -55,12 +55,12 @@
     "typescript": "^5.4.5"
   },
   "peerDependencies": {
-    "@cloudkitect/components": "1.2.2",
+    "@cloudkitect/components": "^1.2.2",
     "aws-cdk-lib": "^2.137.0",
     "constructs": "^10.3.0"
   },
   "dependencies": {
-    "@cloudkitect/components": "1.2.2"
+    "@cloudkitect/components": "^1.2.2"
   },
   "keywords": [
     "aws",
