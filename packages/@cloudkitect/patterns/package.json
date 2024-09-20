@@ -1,6 +1,6 @@
 {
   "name": "@cloudkitect/patterns",
-  "description": "CloudKitect freemium patterns are built on top of CloudKitect freemium components which comply to various standards. Using these patterns you can host your website, or run your containerized app using ECS Fargate within a couple hours",
+  "description": "CloudKitect Inc freemium patterns are built on top of CloudKitect freemium components which comply to various standards. Using these patterns you can host your website, or run your containerized app using ECS Fargate within a couple hours",
   "repository": {
     "type": "git",
     "url": "https://github.com/cloudkitect/freemium"
@@ -34,7 +34,7 @@
     "organization": true
   },
   "devDependencies": {
-    "@cloudkitect/components": "1.4.0",
+    "@cloudkitect/components": "1.4.1",
     "@types/jest": "^29.5.12",
     "@types/node": "^18",
     "@typescript-eslint/eslint-plugin": "^6",
@@ -57,12 +57,12 @@
     "typescript": "^5.4.5"
   },
   "peerDependencies": {
-    "@cloudkitect/components": "^1.4.0",
+    "@cloudkitect/components": "^1.4.1",
     "aws-cdk-lib": "^2.137.0",
     "constructs": "^10.3.0"
   },
   "dependencies": {
-    "@cloudkitect/components": "^1.4.0"
+    "@cloudkitect/components": "^1.4.1"
   },
   "keywords": [
     "aws",
@@ -71,6 +71,7 @@
     "cloud compliance",
     "cloud components",
     "cloudkitect",
+    "cloudkitect inc",
     "freemium",
     "infrastructure as code",
     "patterns",

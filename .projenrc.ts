@@ -49,7 +49,7 @@ const subProjectSettings = {
 
 const components = new AwsCdkConstructLibrary({
   ...subProjectSettings,
-  description: "CloudKitect freemium components are scaled down versions of CloudKitect enhanced components offered as monthly or yearly subscription. These are well architected components that offer" +
+  description: "CloudKitect Inc. freemium components are scaled down versions of CloudKitect enhanced components offered as monthly or yearly subscription. These are well architected components that offer" +
       " out of the box monitoring, alerting and compliance to various standards.",
   name: `${scope}/components`,
   outdir: `${packagesPath}/components`,
@@ -73,11 +73,11 @@ releaseYaml!.addOverride('jobs.release_nuget.steps.6.run', 'cd .repo && pnpm i -
 
 const patterns = new AwsCdkConstructLibrary({
   ...subProjectSettings,
-  description: "CloudKitect freemium patterns are built on top of CloudKitect freemium components which comply to various standards. " +
+  description: "CloudKitect Inc freemium patterns are built on top of CloudKitect freemium components which comply to various standards. " +
       "Using these patterns you can host your website, or run your containerized app using ECS Fargate within a couple hours",
   name: `${scope}/patterns`,
   outdir: `${packagesPath}/patterns`,
-  keywords: ["cloudkitect", "cdk", "freemium", "infrastructure as code", "aws",
+  keywords: ["cloudkitect", "cloudkitect inc", "cdk", "freemium", "infrastructure as code", "aws",
     "cloud components", "cdk constructs", "patterns", "terraform", "cloud compliance", "well architected"],
   publishToPypi: {
     distName: 'cloudkitect.patterns',
@@ -89,9 +89,9 @@ const patterns = new AwsCdkConstructLibrary({
   }
 });
 
-patterns.addDeps(`${scope}/components@^1.4.0`)
-patterns.addPeerDeps(`${scope}/components@^1.4.0`)
-patterns.addDevDeps(`${scope}/components@1.4.0`)
+patterns.addDeps(`${scope}/components@^1.4.1`)
+patterns.addPeerDeps(`${scope}/components@^1.4.1`)
+patterns.addDevDeps(`${scope}/components@1.4.1`)
 patterns.synth();
 
 const patternReleaseYaml = project.tryFindObjectFile('.github/workflows/release_cloudkitect-patterns.yml');
