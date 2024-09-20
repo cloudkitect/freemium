@@ -2,7 +2,7 @@
   "dependencies": [
     {
       "name": "@cloudkitect/components",
-      "version": "1.4.0",
+      "version": "1.4.1",
       "type": "build"
     },
     {
@@ -98,7 +98,7 @@
     },
     {
       "name": "@cloudkitect/components",
-      "version": "^1.4.0",
+      "version": "^1.4.1",
       "type": "peer"
     },
     {
@@ -113,7 +113,7 @@
     },
     {
       "name": "@cloudkitect/components",
-      "version": "^1.4.0",
+      "version": "^1.4.1",
       "type": "runtime"
     }
   ],
